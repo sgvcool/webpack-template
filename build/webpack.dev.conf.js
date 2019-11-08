@@ -1,6 +1,7 @@
 const webpack = require("webpack")
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
+const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   // BUILD settings gonna be here
@@ -18,7 +19,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   plugins: [
     new webpack.SourceMapDevToolPlugin({
       filename: '[file].map'
-    })
+    }),
+    new ImageminPlugin({ 
+      test: /\.(jpe?g|png|gif|svg)$/i
+    }) 
   ]
 });
 
