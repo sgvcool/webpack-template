@@ -22,6 +22,8 @@
  * 3) СТВОРЕННЯ ЯРЛИКІВ ЗБОРКИ WEBPACK
  * (продакшин і дев, в дев мод зборка проекту відбувається бистріше, але не створюється папка dist)
  * 
+ * - створюємо index.html  в корні 
+ * - додаєм в нього <script src="/dist/app.js"></script>
  * - створюємо index.js в src
  * - дописуємо в packege.json
  */
@@ -38,7 +40,6 @@
  /**
   * - відкриваємо наш packege.json, дивимось чи добавились наші devDepencies
   * - запускаємо команду npm run test ( наш кастомний скріпт)
-  * - npm run dev
   * - npm run build ( перевіряємо чи збирається наш бандл)
   */
 ?>
@@ -86,6 +87,9 @@
  * - підключаємо наш /dist/app.js
  * - створюємо common.js
  * - підключаємо import './js/common';  в index.js
+ * 
+ * import './common';
+ * 
  * - запускаєм webpack
  * - npm run dev 
  */ ?>
@@ -115,6 +119,16 @@
 
  /**
   * - створюємо .babelrc в корні
+  * - вставляєм в нього
+
+  {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+
+
+
   * - додаєм трохи ES6 common.js
 
   let sum  = (a,b) => a + b;
@@ -143,17 +157,6 @@
 
    import './css/main.css';
 
- * - webpack.config
-  добавляєм правило лоадера для css
-
-  {
-  test: /\.css$/,
-  use: [
-    MiniCssExtractPlugin.loader,
-    "css-loader"
-   ]
-}
-
  * - добавляем зверху файлу webpack.config
    
    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -173,6 +176,13 @@
   <link rel="stylesheet" href="/dist/app.css">
 
 
+
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    })
+  ],
+  
  */
 ?>
 
